@@ -7,7 +7,9 @@
 
 #include <d2d1.h>
 
+#ifndef SOLVER
 #include "input.h"
+#endif
 
 ID2D1Bitmap* VisualBoard::sprite = nullptr;
 std::unordered_map<int, D2D1_RECT_F> VisualBoard::num_to_sprite_location;
@@ -64,6 +66,7 @@ void VisualBoard::draw(Graphics& g) const {
 
 }
 
+#ifndef SOLVER
 void VisualBoard::update() {
     // if a single key was not pressed, do nothing and return
 
@@ -97,3 +100,4 @@ void VisualBoard::update() {
     }
 
 }
+#endif

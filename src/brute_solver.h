@@ -15,7 +15,7 @@ std::vector<std::pair<Board, float>> get_all_possible_boards(const Board& b);
 
 float get_board_ev(const Board& b, int depth);
 
-Move next_move(Board& board, int depth);
+Move next_move(const Board& board, int depth);
 
 
 

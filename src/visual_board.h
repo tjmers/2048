@@ -25,5 +25,8 @@ public:
     static HRESULT init(Graphics& g);
 
     void draw(Graphics& g) const;
+
+    #ifndef SOLVER
     void update();
+    #endif
 };

@@ -101,7 +101,7 @@ float brute_solver::get_board_ev(const Board& b, int depth) {
     return ev;
 }
 
-Move brute_solver::next_move(Board& board, int depth) {
+Move brute_solver::next_move(const Board& board, int depth) {
 
     std::array<float, 4> move_ev;
 

@@ -32,7 +32,7 @@ Board::Board(const Board&& other) : board(std::move(other.board)), score(other.s
 }
 
 
-#if defined(DEBUG) || defined(solver)
+#if defined(DEBUG) || defined(SOLVER)
 
 int Board::calculate_open_spaces(const std::array<int, BOARD_SIZE>& board) {
     int open_spaces = 0;

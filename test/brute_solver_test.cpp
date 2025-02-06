@@ -6,9 +6,9 @@
 
 int main(void) {
 
-    Board b({2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+    Board b({0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 2});
 
-    Move next_move = brute_solver::next_move(b, 3);
+    Move next_move = brute_solver::next_move(b, 4);
 
     std::cout << next_move << '\n';
 
