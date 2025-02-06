@@ -10,7 +10,7 @@
 
 #include "graphics.h"
 
-class VisualBoard : Board {
+class VisualBoard : public Board {
 
 private:
 

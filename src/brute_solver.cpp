@@ -100,7 +100,8 @@ float brute_solver::get_board_ev(const Board& b, int depth) {
 
     return ev;
 }
-brute_solver::Move brute_solver::next_move(Board& board, int depth) {
+
+Move brute_solver::next_move(Board& board, int depth) {
 
     std::array<float, 4> move_ev;
 
@@ -137,30 +138,3 @@ brute_solver::Move brute_solver::next_move(Board& board, int depth) {
     // If this is reached, something went wrong
     std::exit(1);
 }
-
-#ifdef DEBUG
-
-/// @brief Overloads the << operator so that it is easier to print a move
-/// @param os output stream to output data to 
-/// @param m the move to be outputted 
-/// @return the same os that was inputted, with the additional data added from the move 
-std::ostream& brute_solver::operator<<(std::ostream& os, brute_solver::Move m) {
-    switch (m) {
-        case Move::UP:
-            os << "Up";
-            break;
-        case Move::DOWN:
-            os << "Down";
-            break;
-        case Move::LEFT:
-            os << "Left";
-            break;
-        case Move::RIGHT:
-            os << "Right";
-            break;
-    }
-
-    return os;
-}
-
-#endif
