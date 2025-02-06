@@ -32,15 +32,31 @@ Board::Board(const Board&& other) : board(std::move(other.board)), score(other.s
 }
 
 
-#ifdef DEBUG
-Board::Board(std::array<int, BOARD_SIZE> board) : board(board), score(0), open_spaces(0) {
-    // Calculate the number of open spaces
+#if defined(DEBUG) || defined(solver)
+
+int Board::calculate_open_spaces(const std::array<int, BOARD_SIZE>& board) {
+    int open_spaces = 0;
     for (int i = 0; i < BOARD_SIZE; ++i) {
         if (board[i] == 0) {
             ++open_spaces;
         }
     }
+
+    return open_spaces;
 }
+
+Board::Board(const std::array<int, BOARD_SIZE>& board) : board(board), score(0), open_spaces(calculate_open_spaces(board)) {
+}
+
+Board::Board(const std::array<int, BOARD_SIZE>&& board) : board(std::move(board)), score(0), open_spaces(calculate_open_spaces(board)) {
+}
+
+Board::Board(const std::array<int, BOARD_SIZE>& board, int score) : board(board), score(score), open_spaces(calculate_open_spaces(board)) {
+}
+
+Board::Board(const std::array<int, BOARD_SIZE>&& board, int score) : board(std::move(board)), score(score), open_spaces(calculate_open_spaces(board)) {
+}
+
 #endif
 
 void Board::perform_up() {

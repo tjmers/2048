@@ -8,11 +8,14 @@
 
 class Board {
 
-private:
-
+public:
 
     constexpr static int BOARD_SIZE = 16;
     constexpr static int FOUR_PERCENTAGE = 10;
+
+private:
+
+
     
     /// @brief the representation of the board, with the top left being slot 0
     std::array<int, BOARD_SIZE> board;
@@ -23,6 +26,10 @@ private:
     // Number of zeros in the board
     int open_spaces;
 
+#if defined(DEBUG) || defined(SOLVER)
+    static int calculate_open_spaces(const std::array<int, BOARD_SIZE>& board);
+#endif
+
 public:
 
 
@@ -31,8 +38,11 @@ public:
     Board();
     Board(const Board& other);
     Board(const Board&& other);
-#ifdef DEBUG
-    Board(std::array<int, BOARD_SIZE> board);
+#if defined(DEBUG) || defined(SOLVER)
+    Board(const std::array<int, BOARD_SIZE>& board);
+    Board(const std::array<int, BOARD_SIZE>&& board);
+    Board(const std::array<int, BOARD_SIZE>& board, int score);
+    Board(const std::array<int, BOARD_SIZE>&& board, int score);
 #endif
 
     void perform_up();

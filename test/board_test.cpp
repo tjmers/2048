@@ -6,13 +6,13 @@
 #include <functional>
 #include <iostream>
 
-#include <stdlib.h>
+#include <cstdlib>
 
 template <typename T>
 void assert(T expected, T observed) {
     if (expected != observed) {
         std::cout << "Assertation failed:\nExpected:\n" << expected << "\nbut was:\n" << observed << '\n';
-        exit(EXIT_FAILURE); 
+        std::exit(EXIT_FAILURE); 
     }
 }
 
