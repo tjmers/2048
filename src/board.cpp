@@ -15,7 +15,7 @@ void Board::init() {
     std::srand(std::time({}));
 }
 
-Board::Board() : board(), score(0), open_spaces(BOARD_SIZE - 2) {
+Board::Board() : board(), score(0), open_spaces(BOARD_SIZE - 2), moves(0) {
     // Start with an empty board with two randomly generated squares
 
     board.fill(0);
@@ -23,12 +23,30 @@ Board::Board() : board(), score(0), open_spaces(BOARD_SIZE - 2) {
     generate_new_square();
 }
 
-Board::Board(const Board& other) : board(other.board), score(other.score), open_spaces(other.open_spaces) {
+Board::Board(const Board& other) : board(other.board), score(other.score), open_spaces(other.open_spaces), moves(other.moves) {
     
 }
 
-Board::Board(const Board&& other) : board(std::move(other.board)), score(other.score), open_spaces(other.open_spaces) {
+Board::Board(Board&& other) : board(std::move(other.board)), score(other.score), open_spaces(other.open_spaces), moves(other.moves) {
 
+}
+
+Board* Board::operator=(const Board& other) {
+    board = other.board;
+    score = other.score;
+    open_spaces = other.open_spaces;
+    moves = other.moves;
+
+    return this;
+}
+
+Board* Board::operator=(Board&& other) {
+    board = std::move(other.board);
+    score = other.score;
+    open_spaces = other.open_spaces;
+    moves = other.moves;
+
+    return this;
 }
 
 
@@ -45,16 +63,22 @@ int Board::calculate_open_spaces(const std::array<int, BOARD_SIZE>& board) {
     return open_spaces;
 }
 
-Board::Board(const std::array<int, BOARD_SIZE>& board) : board(board), score(0), open_spaces(calculate_open_spaces(board)) {
+Board::Board(const std::array<int, BOARD_SIZE>& board) : board(board), score(0), open_spaces(calculate_open_spaces(board)), moves(0) {
 }
 
-Board::Board(const std::array<int, BOARD_SIZE>&& board) : board(std::move(board)), score(0), open_spaces(calculate_open_spaces(board)) {
+Board::Board(const std::array<int, BOARD_SIZE>&& board) : board(std::move(board)), score(0), open_spaces(calculate_open_spaces(board)), moves(0) {
 }
 
-Board::Board(const std::array<int, BOARD_SIZE>& board, int score) : board(board), score(score), open_spaces(calculate_open_spaces(board)) {
+Board::Board(const std::array<int, BOARD_SIZE>& board, int score) : board(board), score(score), open_spaces(calculate_open_spaces(board)), moves(0) {
 }
 
-Board::Board(const std::array<int, BOARD_SIZE>&& board, int score) : board(std::move(board)), score(score), open_spaces(calculate_open_spaces(board)) {
+Board::Board(const std::array<int, BOARD_SIZE>&& board, int score) : board(std::move(board)), score(score), open_spaces(calculate_open_spaces(board)), moves(0) {
+}
+
+Board::Board(const std::array<int, BOARD_SIZE>& board, int score, int moves) : board(board), score(score), open_spaces(calculate_open_spaces(board)), moves(moves) {
+}
+
+Board::Board(const std::array<int, BOARD_SIZE>&& board, int score, int moves) : board(std::move(board)), score(score), open_spaces(calculate_open_spaces(board)), moves(moves) {
 }
 
 #endif
@@ -95,6 +119,8 @@ void Board::perform_up() {
 
         }
     }
+
+    ++moves;
 }
 
 
@@ -134,6 +160,8 @@ void Board::perform_down() {
 
         }
     }
+
+    ++moves;
 }
 
 
@@ -174,6 +202,8 @@ void Board::perform_left() {
 
         }
     }
+
+    ++moves;
 }
 
 
@@ -213,6 +243,8 @@ void Board::perform_right() {
 
         }
     }
+
+    ++moves;
 }
 
 bool Board::can_perform_up() const {
@@ -320,10 +352,6 @@ bool Board::can_perform_right() const {
     }
 
     return false;
-}
-
-int Board::get_score() const {
-    return score;
 }
 
 bool Board::game_over() const {

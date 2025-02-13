@@ -3,7 +3,10 @@
 #include <functional>
 #include <vector>
 
-template class PriorityDeque<int>;
+#include "../src/board.h"
+#include "../src/move.h"
+
+template class PriorityDeque<std::tuple<Board, int, Move>>;
 
 template<typename T>
 PriorityDeque<T>::PriorityDeque(std::function<int(T, T)> comparator) : comparator(comparator), rep() {
@@ -33,5 +36,10 @@ void PriorityDeque<T>::add(T item) {
 
     // Low is not at the correct position
     rep.insert(rep.begin() + low, item);
+
+    // Make sure that this has a size smaller than MAX_SIZE
+    if (rep.size() > MAX_SIZE) {
+        pop_least();
+    }
 
 }

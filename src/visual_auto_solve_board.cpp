@@ -27,5 +27,7 @@ void VisualAutoSolveBoard::update() {
             break;
     }
 
+    // Says that we should draw the board again
+    change();
     generate_new_square();
 }

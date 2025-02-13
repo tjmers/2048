@@ -14,6 +14,10 @@
 ID2D1Bitmap* VisualBoard::sprite = nullptr;
 std::unordered_map<int, D2D1_RECT_F> VisualBoard::num_to_sprite_location;
 
+VisualBoard::VisualBoard() : Board(), change_since_update(true) {
+
+}
+
 HRESULT VisualBoard::init(Graphics& g) {
 
     Board::init();
@@ -41,6 +45,9 @@ HRESULT VisualBoard::init(Graphics& g) {
 
 void VisualBoard::draw(Graphics& g) const {
 
+    if (!change_since_update)
+        return;
+
     // Clear the screen
     g.ClearScreen(D2D1::ColorF::White);
 
@@ -64,6 +71,7 @@ void VisualBoard::draw(Graphics& g) const {
     g.DrawLine({SCREEN_WIDTH / 2, 0}, {SCREEN_WIDTH / 2, SCREEN_HEIGHT}, OUTLINE_THICKNESS);
     g.DrawLine({3 * SCREEN_WIDTH / 4, 0}, {3 * SCREEN_WIDTH / 4, SCREEN_HEIGHT}, OUTLINE_THICKNESS);
 
+    change_since_update = false;
 }
 
 #ifndef SOLVER
@@ -98,6 +106,8 @@ void VisualBoard::update() {
         }
         Input::SetKey(Key::DOWN, false);
     }
+
+    change();
 
 }
 #endif

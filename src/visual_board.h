@@ -17,10 +17,13 @@ private:
     static ID2D1Bitmap* sprite;
     static std::unordered_map<int, D2D1_RECT_F> num_to_sprite_location;
 
-    bool animation;
-    int animation_frame;
+    mutable bool change_since_update;
 
 public:
+
+    VisualBoard();
+
+    inline void change() const { change_since_update = true; }
 
     static HRESULT init(Graphics& g);
 

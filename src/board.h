@@ -26,6 +26,8 @@ private:
     // Number of zeros in the board
     int open_spaces;
 
+    int moves;
+
 #if defined(DEBUG) || defined(SOLVER)
     static int calculate_open_spaces(const std::array<int, BOARD_SIZE>& board);
 #endif
@@ -37,12 +39,16 @@ public:
 
     Board();
     Board(const Board& other);
-    Board(const Board&& other);
+    Board(Board&& other);
+    Board* operator=(const Board& other);
+    Board* operator=(Board&& other);
 #if defined(DEBUG) || defined(SOLVER)
     Board(const std::array<int, BOARD_SIZE>& board);
     Board(const std::array<int, BOARD_SIZE>&& board);
     Board(const std::array<int, BOARD_SIZE>& board, int score);
     Board(const std::array<int, BOARD_SIZE>&& board, int score);
+    Board(const std::array<int, BOARD_SIZE>& board, int score, int moves);
+    Board(const std::array<int, BOARD_SIZE>&& board, int score, int moves);
 #endif
 
     void perform_up();
@@ -54,7 +60,9 @@ public:
     bool can_perform_left() const;
     bool can_perform_right() const;
 
-    int get_score() const;
+    inline int get_score() const { return score; }
+    inline int get_num_open() const { return open_spaces; }
+    inline int get_num_moves() const { return moves; }
 
     bool game_over() const;
 

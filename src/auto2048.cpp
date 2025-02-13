@@ -1,9 +1,9 @@
-// g++ src/auto2048.cpp src/board.cpp src/visual_board.cpp src/visual_auto_solve_board.cpp src/graphics.cpp src/move.cpp src/brute_solver.cpp -o auto2048.exe -O3 -std=c++20 -ld2d1 -lWindowsCodecs -lole32 -DSOLVER
+// g++ src/auto2048.cpp src/board.cpp src/visual_board.cpp src/visual_auto_solve_board.cpp src/graphics.cpp src/move.cpp src/pq_solver.cpp structures/priority_deque.cpp -o auto2048.exe -O3 -std=c++20 -ld2d1 -lWindowsCodecs -lole32 -DSOLVER
 
 #include <Windows.h>
 
-#include "brute_solver.h"
 #include "graphics.h"
+#include "pq_solver.h"
 #include "visual_auto_solve_board.h"
 #include "visual_board.h"
 
@@ -68,8 +68,7 @@ int CALLBACK WinMain(
 	}
 
 
-	// Does not work with any number greater than 4
-	VisualAutoSolveBoard board(brute_solver::next_move, 4);
+	VisualAutoSolveBoard board(pq_solver::solve, 10);
 
     ShowWindow(hWnd, SW_SHOW);
 

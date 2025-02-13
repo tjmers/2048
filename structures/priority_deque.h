@@ -16,6 +16,9 @@ private:
     /// @brief Representation of the this.
     std::vector<T> rep;
 
+    /// @brief Maximum size of this. This implementation will remove the lowest value of a value is attemted to be added to a full queue.
+    constexpr static int MAX_SIZE = 64;
+
 public:
 
     PriorityDeque(std::function<int(T, T)> comparator);
